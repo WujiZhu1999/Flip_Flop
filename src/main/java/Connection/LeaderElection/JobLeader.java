@@ -8,11 +8,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class JobLeader implements ElectJobLeader, Watcher {
 
-
-    private class ZooKeeperInfo{
+    private ZooKeeper zooKeeper;
+    private final int sessionTimeout;
+    private final String serviceNameSpace;
+    private Object zookeeperLocker;
+    private class ZooKeeperInfo implements Comparable<ZooKeeperInfo>{
         public final String key;
         public final String address;
 
@@ -40,6 +44,10 @@ public class JobLeader implements ElectJobLeader, Watcher {
             return (this.address.equals(c.address)) && (this.key.equals(c.key));
         }
 
+        @Override
+        public int compareTo(ZooKeeperInfo o) {
+            return this.key.compareTo(o.key);
+        }
     }
 
     /**
@@ -52,6 +60,8 @@ public class JobLeader implements ElectJobLeader, Watcher {
         if (!this.zooKeeperInfos.contains(zooKeeperInfo)) {
             this.zooKeeperInfos.add(zooKeeperInfo);
         }
+
+        System.out.println("----------------------------------------------------------------");
     }
 
     /**
@@ -59,28 +69,84 @@ public class JobLeader implements ElectJobLeader, Watcher {
      * for same service name, they should be directed to same zookeeper instance
      * */
     private void sortZookeeperInstance(){
-        //this.zooKeeperInfos.sort();
+        this.zooKeeperInfos.sort(ZooKeeperInfo::compareTo);
+    }
+
+    /**
+     * This function will keep checking if there are new available address
+     * */
+    public void waitForAddress(int timeout) {
+        while(this.zooKeeperInfos.isEmpty()){
+            System.out.println("No available zooKeeperServer");
+            try {
+                TimeUnit.SECONDS.sleep(timeout);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return;
+    }
+
+    /**
+     * Connect New to a zookeeper instance
+     * */
+    public void connectToNewZookeeper() throws InterruptedException {
+        //close connection if old zookeeper connection is not aborted yet
+        if (!Objects.isNull(this.zooKeeper)){
+            releaseZookeeperConnection();
+        }
+
+        ZooKeeper zooKeeper = null;
+        while(Objects.isNull(zooKeeper)) {
+
+            if (this.zooKeeperInfos.isEmpty()) {
+                this.zooKeeperInfos.wait();
+            }
+
+            ZooKeeperInfo zooKeeperInfo = this.zooKeeperInfos.remove(0);
+            try {
+                zooKeeper = new ZooKeeper(zooKeeperInfo.address, sessionTimeout, this);
+            } catch (IOException e) {
+                System.out.println("Address not available: " + zooKeeperInfo.address);
+            }
+
+            if (!Objects.isNull(zooKeeper)) {
+                this.zooKeeper = zooKeeper;
+                this.zooKeeper.wait();
+            }
+        }
+
+    }
+
+    private void releaseZookeeperConnection(){
+
     }
 
 
 
     public static void main(String args[]) throws InterruptedException {
-        //JobLeader jobLeader = new JobLeader("test");
+        JobLeader jobLeader = new JobLeader("test", 3000);
+        jobLeader.addZookeeperInstance("k1","localhost:2181");
+        jobLeader.connectToNewZookeeper();
         //jobLeader.addZookeeper("localhost:2181",3000);
+        //jobLeader.waitForAddress(5);
+        jobLeader.addZookeeperInstance("k1","localhost:2181");
     }
 
 
 
-    private final String serviceNameSpace;
-    private static int sessionTimeout = 3000;
-    private ZooKeeper zooKeeper;
+
+
+
     private List<String> zooKeeperAddress;
 
 
 
-    public JobLeader(String serviceNameSpace){
+    public JobLeader(String serviceNameSpace, int sessionTimeout){
         this.serviceNameSpace = serviceNameSpace;
-        this.zooKeeperAddress = new ArrayList<>();
+        this.sessionTimeout = sessionTimeout;
+        this.zooKeeperInfos = new ArrayList<>();
+        this.zookeeperLocker = new Object();
     }
 
     /**
@@ -162,7 +228,11 @@ public class JobLeader implements ElectJobLeader, Watcher {
                         //which will make the main thread keep going
                         System.out.println("Disconnected from Zookeeper event");
                         this.zooKeeper.notifyAll();
-                        this.zooKeeper = null;
+                        try {
+                            this.zooKeeper.close();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
         }
