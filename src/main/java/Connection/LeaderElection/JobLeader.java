@@ -10,16 +10,61 @@ import java.util.List;
 import java.util.Objects;
 
 public class JobLeader implements ElectJobLeader, Watcher {
+
+
+    private class ZooKeeperInfo{
+        public final String key;
+        public final String address;
+
+        public ZooKeeperInfo(String key, String address) {
+            this.key = key;
+            this.address = address;
+        }
+
+    }
+
+    /**
+     * Used to store a bunch of available zookeeper instance
+     * */
+    private List<ZooKeeperInfo> zooKeeperInfos;
+    public void addZookeeperInstance(String key, String address){
+        //ToDo: add verification on address
+        ZooKeeperInfo zooKeeperInfo = new ZooKeeperInfo(key, address);
+        if (!this.zooKeeperInfos.contains(zooKeeperInfo)) {
+            this.zooKeeperInfos.add(zooKeeperInfo);
+        }
+    }
+
+    /**
+     * This function should provide logic to select the zookeeper based on some agreed sorting methods,
+     * for same service name, they should be directed to same zookeeper instance
+     * */
+    private void sortZookeeperInstance(){
+    }
+
+
+
+    public static void main(String args[]) throws InterruptedException {
+        //JobLeader jobLeader = new JobLeader("test");
+        //jobLeader.addZookeeper("localhost:2181",3000);
+        ZooKeeper zooKeeper = null;
+        try {
+            zooKeeper = new ZooKeeper("localhost:2181", 3000, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Failed to connect");
+        }
+        System.out.println("Continued moving----------------------------------------");
+    }
+
+
+
     private final String serviceNameSpace;
     private static int sessionTimeout = 3000;
     private ZooKeeper zooKeeper;
     private List<String> zooKeeperAddress;
 
-    public static void main(String args[]) throws InterruptedException {
-        JobLeader jobLeader = new JobLeader("test");
-        jobLeader.addZookeeper("localhost:2181",3000);
 
-    }
 
     public JobLeader(String serviceNameSpace){
         this.serviceNameSpace = serviceNameSpace;
@@ -29,7 +74,8 @@ public class JobLeader implements ElectJobLeader, Watcher {
     /**
      * This function should be called when some zooKeeper server is online
      * */
-    private void addZookeeperAddress(String zooKeeperAddress) {
+    public void addZookeeperAddress(String zooKeeperAddress) {
+        //ToDo: should add some verification on address
         this.zooKeeperAddress.add(zooKeeperAddress);
     }
 
@@ -61,6 +107,10 @@ public class JobLeader implements ElectJobLeader, Watcher {
 
     }
 
+
+    /**
+     * If Zookeeper address not available
+     * */
     @Override
     public void selectZookeeperServer() throws InterruptedException {
         ZooKeeper zooKeeper = null;
@@ -84,7 +134,7 @@ public class JobLeader implements ElectJobLeader, Watcher {
             }
 
         }
-        //no zookeeper. dead to be finished soon
+        //no zookeeper address available. dead to be finished soon
     }
 
     @Override
