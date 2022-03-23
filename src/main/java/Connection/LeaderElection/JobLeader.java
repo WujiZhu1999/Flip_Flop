@@ -143,6 +143,8 @@ public class JobLeader implements ElectJobLeader, Watcher {
     public static void main(String args[]) throws InterruptedException {
         JobLeader jobLeader = new JobLeader("test", 3000);
         jobLeader.addZookeeperInstance("k1","localhost:2182");
+        jobLeader.addZookeeperInstance("k1","localhost:2183");
+        jobLeader.addZookeeperInstance("k1","localhost:2184");
         jobLeader.connectToNewZookeeper(5, 1);
         //jobLeader.addZookeeper("localhost:2181",3000);
         //jobLeader.waitForAddress(5);
