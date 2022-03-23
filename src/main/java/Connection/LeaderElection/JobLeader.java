@@ -21,6 +21,25 @@ public class JobLeader implements ElectJobLeader, Watcher {
             this.address = address;
         }
 
+        @Override
+        public int hashCode(){
+            return this.address.hashCode();
+        }
+
+        @Override
+        public boolean equals(Object o){
+            if (o == this) {
+                return true;
+            }
+
+            if (!(o instanceof ZooKeeperInfo)) {
+                return false;
+            }
+
+            ZooKeeperInfo c = (ZooKeeperInfo) o;
+            return (this.address.equals(c.address)) && (this.key.equals(c.key));
+        }
+
     }
 
     /**
@@ -40,6 +59,7 @@ public class JobLeader implements ElectJobLeader, Watcher {
      * for same service name, they should be directed to same zookeeper instance
      * */
     private void sortZookeeperInstance(){
+        //this.zooKeeperInfos.sort();
     }
 
 
@@ -47,14 +67,6 @@ public class JobLeader implements ElectJobLeader, Watcher {
     public static void main(String args[]) throws InterruptedException {
         //JobLeader jobLeader = new JobLeader("test");
         //jobLeader.addZookeeper("localhost:2181",3000);
-        ZooKeeper zooKeeper = null;
-        try {
-            zooKeeper = new ZooKeeper("localhost:2181", 3000, null);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed to connect");
-        }
-        System.out.println("Continued moving----------------------------------------");
     }
 
 
