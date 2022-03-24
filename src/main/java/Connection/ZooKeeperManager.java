@@ -238,7 +238,8 @@ public class ZooKeeperManager implements Watcher {
         TimeUnit.SECONDS.sleep(15);
         zooKeeperManager.addZookeeperInfo("2", "localhost:2181");
         TimeUnit.SECONDS.sleep(5);
-        zooKeeperManager.addZookeeperInfo("1", "localhost:2181");
+        zooKeeperManager.addZookeeperInfo("3", "localhost:2181");
+        System.out.println("--------------------------------------------------------------------------------------");
         TimeUnit.SECONDS.sleep(5);
         zooKeeperManager.releaseZookeeperConnection();
 
