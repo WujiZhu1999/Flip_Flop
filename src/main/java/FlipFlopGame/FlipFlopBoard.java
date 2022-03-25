@@ -157,6 +157,7 @@ public class FlipFlopBoard {
     public void testPrint(){
         for (int i = 0; i< this.boardWidth; i++) {
             for (int j = 0; j < this.boardHeight; j++){
+                System.out.print(this.board.get(i).get(j).getImage());
                 System.out.print(this.board.get(i).get(j).getCellState());
                 System.out.print(" ");
             }
@@ -165,6 +166,11 @@ public class FlipFlopBoard {
     }
 
     public static void main(String args[]) {
+        test2();
+    }
+
+    //ToDo factor these out soon
+    public static void test1() {
         FlipFlopBoard flipFlopBoard = new FlipFlopBoard(5,10,2);
         flipFlopBoard.addImage("a");
         flipFlopBoard.addImage("b");
@@ -173,6 +179,27 @@ public class FlipFlopBoard {
         flipFlopBoard.testPrint();
     }
 
-    //ToDo factor these out soon
-    public void test1() {}
+    public static void test2() {
+        FlipFlopBoard flipFlopBoard = new FlipFlopBoard(5,10,2);
+        flipFlopBoard.addImage("a");
+        flipFlopBoard.addImage("b");
+        flipFlopBoard.addImage("c");
+        flipFlopBoard.generateBoard();
+        flipFlopBoard.testPrint();
+        System.out.println("--------------------------------------------------------");
+        flipFlopBoard.click(1,1);
+        flipFlopBoard.testPrint();
+        System.out.println("--------------------------------------------------------");
+        flipFlopBoard.click(1,2);
+        flipFlopBoard.testPrint();
+        System.out.println("--------------------------------------------------------");
+        flipFlopBoard.click(1,3);
+        flipFlopBoard.testPrint();
+        System.out.println("--------------------------------------------------------");
+        flipFlopBoard.click(1,4);
+        flipFlopBoard.testPrint();
+        System.out.println("--------------------------------------------------------");
+        flipFlopBoard.click(1,5);
+        flipFlopBoard.testPrint();
+    }
 }
