@@ -8,3 +8,7 @@ Between Servers use apache kafka to transfer data of clients, use https to commu
 
 ## Storage
 The images are stored on [to be completed soom]
+
+## Web Socket
+Followed this tutorial to integrate web socket into the game.
+https://spring.io/guides/gs/messaging-stomp-websocket/
