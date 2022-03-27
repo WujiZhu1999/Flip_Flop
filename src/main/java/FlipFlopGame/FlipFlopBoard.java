@@ -1,5 +1,7 @@
 package FlipFlopGame;
 
+import FlipFlop.flip.flop.FlipFlopB;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -165,8 +167,26 @@ public class FlipFlopBoard {
         }
     }
 
+    /**
+     * Get String representation for board
+     * */
+    public String boardString() {
+        String out = "";
+        for (int i = 0; i< this.boardWidth; i++) {
+            for (int j = 0; j < this.boardHeight; j++){
+                out = out.concat("" + this.board.get(i).get(j).getImage());
+                out = out.concat(this.board.get(i).get(j).getCellState() + " ");
+            }
+            out = out.concat("\n");
+        }
+
+
+        return out;
+    }
+
+
     public static void main(String args[]) {
-        test2();
+        test3();
     }
 
     //ToDo factor these out soon
@@ -201,5 +221,16 @@ public class FlipFlopBoard {
         System.out.println("--------------------------------------------------------");
         flipFlopBoard.click(1,5);
         flipFlopBoard.testPrint();
+    }
+
+    public static void test3(){
+        FlipFlopBoard flipFlopBoard = FlipFlopB.getBoard();
+
+        flipFlopBoard.addImage("a");
+        flipFlopBoard.addImage("b");
+        flipFlopBoard.addImage("c");
+        flipFlopBoard.addImage("d");
+        flipFlopBoard.generateBoard();
+        System.out.print(flipFlopBoard.boardString());
     }
 }
