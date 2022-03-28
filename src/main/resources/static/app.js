@@ -20,6 +20,7 @@ function connect() {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/greetings', function (greeting) {
             showGreeting(JSON.parse(greeting.body).content);
+            windowResize();
         });
     });
 }
@@ -68,6 +69,7 @@ function showGreeting(message) {
 
 
 function windowResize(){
+
     var windowsize = $(window).width() < $(window).height();
     var size;
     if (windowsize) {
@@ -86,10 +88,12 @@ $(document).ready( function() {
         var target = $(event.target);
         $td = target.closest('td');
 
+        $td.css("background-image", "none");
+
         var col   = $td.index();
         var row   = $td.closest('tr').index();
 
-        ffClient.send("/ffApp/flip", {}, JSON.stringify({'w': row,'h': col}));
+        //ffClient.send("/ffApp/flip", {}, JSON.stringify({'w': row,'h': col}));
 
     });
 });

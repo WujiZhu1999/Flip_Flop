@@ -11,13 +11,18 @@ table {
     table-layout: fixed;
 }
 
-#boardTable {
+#board{
     height: 80%;
     border-style: solid;
 }
 
-img{
-    max-width: 100%;
-    max-height: 100%;
-    display: block; /* remove extra space below image */
+#boardTable {
+    height: 80%;
+    border-style: solid;
+    display: block;
+}
+
+.aaa {
+    background-image: url("image/05.png");
+    background-size: contain;
 }
