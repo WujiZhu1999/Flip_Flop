@@ -15,3 +15,7 @@ table {
     height: 80%;
     border-style: solid;
 }
+
+td {
+    background-image: url(https://picsum.photos/200/200);
+}
