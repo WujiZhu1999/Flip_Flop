@@ -168,17 +168,24 @@ public class FlipFlopBoard {
     }
 
     /**
-     * Get String representation for board
+     * Get String representation for board, this will output the string as a html table
      * */
     public String boardString() {
-        String out = "";
+        String out = "<table>";
+
         for (int i = 0; i< this.boardWidth; i++) {
+            out = out.concat("<tr>");
             for (int j = 0; j < this.boardHeight; j++){
+
+                out = out.concat("<td>");
                 out = out.concat("" + this.board.get(i).get(j).getImage());
                 out = out.concat(this.board.get(i).get(j).getCellState() + " ");
+                out = out.concat("</td>");
             }
-            out = out.concat("\n");
+            out = out.concat("</tr>");
         }
+
+        out = out.concat("</table>");
 
 
         return out;

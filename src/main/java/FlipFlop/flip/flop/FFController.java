@@ -12,8 +12,8 @@ public class FFController {
     public Greeting greeting(HelloMessage message) throws Exception {
         //Thread.sleep(1000); // simulated delay
         //return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!");
-        return new Greeting("aaa");
-        //return new Greeting(FlipFlopB.getBoard().boardString());
+        //return new Greeting("aaa");
+        return new Greeting(FlipFlopB.getBoard().boardString());
     }
 
     @MessageMapping("/flip")
@@ -23,7 +23,7 @@ public class FFController {
         //return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!");
         FlipFlopBoard flipFlopBoard = FlipFlopB.getBoard();
         flipFlopBoard.click(message.getW(),message.getH());
-        return new Greeting("aaab");
-        //return new Greeting(FlipFlopB.getBoard().boardString());
+        //return new Greeting("aaab");
+        return new Greeting(FlipFlopB.getBoard().boardString());
     }
 }

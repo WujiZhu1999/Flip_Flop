@@ -49,7 +49,7 @@ function ffConnect() {
         setConnected(true);
         console.log('Connected: ' + frame);
         ffClient.subscribe('/ffGame/room1', function (greeting) {
-            showGreeting(JSON.parse(greeting.body).content);
+            showBoard(JSON.parse(greeting.body).content);
         });
     });
 }
@@ -64,6 +64,24 @@ function ffFlipBoard() {
 
 function showGreeting(message) {
     $("#greetings").append("<tr><td>" + message + "</td></tr>");
+}
+
+$(document).ready( function() {
+    $('#boardTable').click( function(event) {
+        var target = $(event.target);
+        $td = target.closest('td');
+
+        var col   = $td.index();
+        var row   = $td.closest('tr').index();
+
+        ffClient.send("/ffApp/flip", {}, JSON.stringify({'w': row,'h': col}));
+
+    });
+});
+
+function showBoard(message){
+    $("#boardTable").empty();
+    $("#boardTable").append(message);
 }
 
 $(function () {
