@@ -184,6 +184,7 @@ public class FlipFlopBoard {
                 //out = out.concat(this.board.get(i).get(j).getCellState() + " ");
                 out = out.concat("</td>");
             }
+
             out = out.concat("</tr>");
         }
 
