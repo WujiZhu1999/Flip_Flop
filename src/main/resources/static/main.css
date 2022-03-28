@@ -3,26 +3,19 @@ html, body {
     height:100%;
 }
 
-table, th, td {
-    border: 1px solid;
-}
-
 table {
     table-layout: fixed;
 }
 
-#board{
-    height: 80%;
-    border-style: solid;
-}
-
 #boardTable {
-    height: 80%;
+    height: 100%;
     border-style: solid;
     display: block;
 }
 
-.aaa {
+.bg {
+    height: 100%;
+    width: 100%;
     background-image: url("image/05.png");
     background-size: contain;
 }

@@ -51,6 +51,7 @@ function ffConnect() {
         console.log('Connected: ' + frame);
         ffClient.subscribe('/ffGame/room1', function (greeting) {
             showBoard(JSON.parse(greeting.body).content);
+            windowResize();
         });
     });
 }
@@ -69,18 +70,14 @@ function showGreeting(message) {
 
 
 function windowResize(){
-
-    var windowsize = $(window).width() < $(window).height();
-    var size;
-    if (windowsize) {
-        $("#board").width("100%");
-        size =$("#board").width();
-        $("#board").height(size);
+    if ($(window).width() < $(window).height()) {
+        $("#board").width("80%");
+        $("#board").height($("#board").width());
     } else {
-        $("#board").height("100%");
-        size = $("#board").height();
-        $("#board").width(size);
+        $("#board").height("80%");
+        $("#board").width($("#board").height());
     }
+    console.log($("#board").height());
 }
 
 $(document).ready( function() {
@@ -88,20 +85,22 @@ $(document).ready( function() {
         var target = $(event.target);
         $td = target.closest('td');
 
-        $td.css("background-image", "none");
-
         var col   = $td.index();
         var row   = $td.closest('tr').index();
 
         //ffClient.send("/ffApp/flip", {}, JSON.stringify({'w': row,'h': col}));
+        changeImage(row,col);
 
     });
 });
 
+function changeImage(row, col){
+    $("#"+row+col).attr("src","image/02.png");
+}
+
 function showBoard(message){
     $("#boardTable").empty();
     $("#boardTable").append(message);
-    windowResize();
 }
 
 $(window).resize(function(){

@@ -176,9 +176,12 @@ public class FlipFlopBoard {
         for (int i = 0; i< this.boardWidth; i++) {
             out = out.concat("<tr>");
             for (int j = 0; j < this.boardHeight; j++){
-                out = out.concat("<td class = \"aaa\">");
+                out = out.concat("<td >");
+                out = out.concat("<img id = \""+i+j+"\" style=\"display:block;\" width=\"100%\" height=\"100%\" src=\"image\\05.png\" />");
+                //out = out.concat("<div class =\"bg\">");
                 //out = out.concat("" + this.board.get(i).get(j).getImage());
                 //out = out.concat(this.board.get(i).get(j).getCellState() + " ");
+                //out = out.concat("</div>");
                 out = out.concat("</td>");
             }
 
