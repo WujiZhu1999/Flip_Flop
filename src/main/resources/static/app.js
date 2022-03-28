@@ -50,9 +50,19 @@ function ffConnect() {
         setConnected(true);
         console.log('Connected: ' + frame);
         ffClient.subscribe('/ffGame/room1', function (greeting) {
-            showBoard(JSON.parse(greeting.body).content);
-            windowResize();
+            if(JSON.parse(greeting.body).flips != null) {
+                $.each(JSON.parse(greeting.body).flips, function( index, value ) {
+                    changeImage(value[0], value[1]);
+                });
+                console.log(JSON.parse(greeting.body).flips);
+            } else {
+                showBoard(JSON.parse(greeting.body).content);
+                console.log(greeting);
+                windowResize();
+            }
+
         });
+
     });
 }
 
@@ -88,14 +98,14 @@ $(document).ready( function() {
         var col   = $td.index();
         var row   = $td.closest('tr').index();
 
-        //ffClient.send("/ffApp/flip", {}, JSON.stringify({'w': row,'h': col}));
-        changeImage(row,col);
+        ffClient.send("/ffApp/flip", {}, JSON.stringify({'w': row,'h': col}));
+        //changeImage(row,col);
 
     });
 });
 
-function changeImage(row, col){
-    $("#"+row+col).attr("src","image/02.png");
+function changeImage(id, url){
+    $(id).attr("src",url);
 }
 
 function showBoard(message){

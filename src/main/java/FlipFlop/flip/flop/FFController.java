@@ -13,6 +13,7 @@ public class FFController {
         //Thread.sleep(1000); // simulated delay
         //return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!");
         //return new Greeting("aaa");
+        FlipFlopB.restart();
         return new Greeting(FlipFlopB.getBoard().boardString());
     }
 
@@ -22,8 +23,7 @@ public class FFController {
         //Thread.sleep(1000); // simulated delay
         //return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!");
         FlipFlopBoard flipFlopBoard = FlipFlopB.getBoard();
-        flipFlopBoard.click(message.getW(),message.getH());
         //return new Greeting("aaab");
-        return new Greeting(FlipFlopB.getBoard().boardString());
+        return flipFlopBoard.click(message.getW(),message.getH());
     }
 }

@@ -1,11 +1,9 @@
 package FlipFlopGame;
 
 import FlipFlop.flip.flop.FlipFlopB;
+import FlipFlop.flip.flop.Greeting;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * This class is used to store all information about current game
@@ -80,11 +78,14 @@ public class FlipFlopBoard {
     /**
      * True means the click successfully update, false means failed to update
      * */
-    public synchronized void click(int w, int h){
+    public synchronized Greeting click(int w, int h){
         if (this.board.size() <= w || this.board.get(w).size() <=h ) {
             //this not supposed to happen
-            return;
+            return null;
         }
+
+        Greeting greeting = new Greeting("");
+        List<List<String>> updates = new ArrayList<>();
 
         FlipFlopCell flipFlopCell = this.board.get(w).get(h);
         if (flipFlopCell.getCellState().equals(FlipFlopCell.CellState.UNFLIPPEDE)){
@@ -93,6 +94,7 @@ public class FlipFlopBoard {
                 this.onHoldImageId = flipFlopCell.getImage();
                 this.onSelect.add(new coor(w,h));
 
+                updates.add(Arrays.asList("#"+w+h,this.images.get(flipFlopCell.getImage())));
 
                 //if reached sufficient on one trial, make them permanent flipped
                 if(this.onSelect.size() == this.flipCount) {
@@ -108,12 +110,17 @@ public class FlipFlopBoard {
                 while(!this.onSelect.isEmpty()) {
                     coor c = this.onSelect.remove(0);
                     this.board.get(c.w).get(c.h).flipBack();
+                    updates.add(Arrays.asList("#"+c.w+c.h,"image/05.png"));
                 }
 
                 this.onHoldImageId = -1;
             }
 
         }
+
+        testPrint();
+        greeting.setFlips(updates);
+        return greeting;
 
     }
 
@@ -144,6 +151,7 @@ public class FlipFlopBoard {
                 this.board.get(w).add(list.remove(0));
             }
         }
+
 
 
     }
