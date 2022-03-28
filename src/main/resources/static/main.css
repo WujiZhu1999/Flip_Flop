@@ -1,0 +1,17 @@
+html, body {
+    margin:0px;
+    height:100%;
+}
+
+table, th, td {
+    border: 1px solid;
+}
+
+table {
+    height: 100%;
+}
+
+#boardTable {
+    height: 80%;
+    border-style: solid;
+}

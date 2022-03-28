@@ -66,6 +66,11 @@ function showGreeting(message) {
     $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }
 
+function windowResize(){
+    var size =$("#board").height();
+    $("#board").width(size);
+}
+
 $(document).ready( function() {
     $('#boardTable').click( function(event) {
         var target = $(event.target);
@@ -82,7 +87,12 @@ $(document).ready( function() {
 function showBoard(message){
     $("#boardTable").empty();
     $("#boardTable").append(message);
+    windowResize();
 }
+
+$(window).resize(function(){
+    windowResize();
+});
 
 $(function () {
     $("form").on('submit', function (e) {

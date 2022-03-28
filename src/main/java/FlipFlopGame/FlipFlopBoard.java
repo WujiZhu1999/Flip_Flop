@@ -171,7 +171,7 @@ public class FlipFlopBoard {
      * Get String representation for board, this will output the string as a html table
      * */
     public String boardString() {
-        String out = "<table>";
+        String out = "<table id=\"board\">";
 
         for (int i = 0; i< this.boardWidth; i++) {
             out = out.concat("<tr>");
