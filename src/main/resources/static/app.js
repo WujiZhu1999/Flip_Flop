@@ -66,9 +66,19 @@ function showGreeting(message) {
     $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }
 
+
 function windowResize(){
-    var size =$("#board").height();
-    $("#board").width(size);
+    var windowsize = $(window).width() < $(window).height();
+    var size;
+    if (windowsize) {
+        $("#board").width("100%");
+        size =$("#board").width();
+        $("#board").height(size);
+    } else {
+        $("#board").height("100%");
+        size = $("#board").height();
+        $("#board").width(size);
+    }
 }
 
 $(document).ready( function() {
