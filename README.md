@@ -12,3 +12,6 @@ The images are stored on [to be completed soom]
 ## Web Socket
 Followed this tutorial to integrate web socket into the game.
 https://spring.io/guides/gs/messaging-stomp-websocket/
+
+## S3 storage
+https://aws.amazon.com/getting-started/hands-on/backup-files-to-amazon-s3/
