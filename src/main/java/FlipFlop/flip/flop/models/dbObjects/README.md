@@ -1,0 +1,1 @@
+this folder should contain data type that needs to be communicated with db

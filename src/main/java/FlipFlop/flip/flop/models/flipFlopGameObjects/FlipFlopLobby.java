@@ -1,4 +1,10 @@
-package FlipFlop.flip.flop.Models;
+package FlipFlop.flip.flop.models.flipFlopGameObjects;
+
+import FlipFlop.flip.flop.models.communicationObjects.BoardObject;
+import FlipFlop.flip.flop.models.communicationObjects.RoomObject;
+import FlipFlop.flip.flop.service.BoardActionManager;
+import FlipFlop.flip.flop.service.LobbyActionManager;
+import FlipFlop.flip.flop.service.RoomActionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +17,52 @@ public class FlipFlopLobby {
     private static int ROOM_NUMBER = 10;
 
     private static FlipFlopLobby lobby;
+
+    /**
+     * Getters
+     * */
+    public static List<FlipFlopRoom> getRooms(){
+        return FlipFlopLobby.rooms;
+    }
+
+    public static List<String> getRoomNames(){
+        return FlipFlopLobby.rooms.stream()
+                .map(room -> room.getRoomName())
+                .collect(Collectors.toList());
+    }
+
+    public static List<String> getFreeRoomKeys(){
+        return FlipFlopLobby.getRooms().stream()
+                .filter(room -> room.isFree())
+                .map(room -> room.getRoomName())
+                .collect(Collectors.toList());
+    }
+
+    public static FlipFlopRoom getRoom(String roomKey){
+        if (FlipFlopLobby.getRoomNames().contains(roomKey)) {
+            return FlipFlopLobby.getRooms().stream()
+                    .filter(room -> room.getRoomName().equals(roomKey))
+                    .findFirst()
+                    .get();
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Getter ends
+     * */
+
+    /**
+     * Setters
+     * */
+    public String createRoom(){
+        return null;
+    }
+    /**
+     * Setter ends
+     * */
+
 
     public static FlipFlopLobby getLobby() {
         if(Objects.isNull(FlipFlopLobby.lobby)){
@@ -40,7 +92,6 @@ public class FlipFlopLobby {
         }
 
         return (this.joinRoom(freeRoomNames, user));
-
 
     }
 
@@ -72,23 +123,9 @@ public class FlipFlopLobby {
 
         FlipFlopRoom room = roomWithSameName.get(0);
         room.leave(user);
-
-        //check if needs cleaning
-        if (room.needsClean()){
-            FlipFlopLobby.roomNames.remove(room.getRoomName());
-            synchronized (roomNames){
-                room.generateNewName();
-                while (FlipFlopLobby.roomNames.contains(room.getRoomName())){
-                    room.generateNewName();
-                }
-                FlipFlopLobby.roomNames.add(room.getRoomName());
-            }
-
-            room.cleaning();
-
-        }
     }
 
+    /**
     public FlipFlopRoom getRoom(String roomName) {
         List<FlipFlopRoom> roomWithSameName = FlipFlopLobby.rooms.stream().filter(r -> r.getRoomName().equals(roomName)).collect(Collectors.toList());
         if(roomWithSameName.isEmpty()){
@@ -98,28 +135,34 @@ public class FlipFlopLobby {
         FlipFlopRoom room = roomWithSameName.get(0);
         return room;
     }
+     */
 
     public static void main(String args[]){
-        FlipFlopLobby lo = FlipFlopLobby.getLobby();
+        RoomActionManager roomActionManager = new RoomActionManager();
+        LobbyActionManager lobbyActionManager = new LobbyActionManager();
+        BoardActionManager boardActionManager = new BoardActionManager();
 
+        FlipFlopRoomLobby flipFlopRoomLobby = FlipFlopRoomLobby.getInstance();
         User u1 = new User("LUC");
         User u2 = new User("LUC2");
 
-        String name = lo.joinFreeRoom(u1);
-        String name2 = lo.joinRoom(name, u2);
+        String roomKey1 = lobbyActionManager.joinRoom(u1);
+        String roomKey2 = lobbyActionManager.joinRoom(u2, roomKey1);
 
-        FlipFlopRoom r = lo.getRoom(name2);
-        BoardFactory.setupBoard(r.getBoard(), "easy");
-        r.getBoard().click(1,1);
-        r.getBoard().click(1,2);
-        r.getBoard().click(2,1);
-        r.getBoard().click(2,2);
-        r.getBoard().click(3,1);
-        r.getBoard().click(3,2);
+        Board board = FlipFlopRoomLobby.getInstance().getRoom(roomKey1).getBoard();
+        FlipFlopRoom room =FlipFlopRoomLobby.getInstance().getRoom(roomKey1);
+        BoardObject boardObject = roomActionManager.getNewBoard(roomKey1);
+        boardActionManager.click(roomKey1, 1, 1);
+        boardActionManager.click(roomKey1, 1, 2);
+        boardActionManager.click(roomKey1, 2, 1);
+        boardActionManager.click(roomKey1, 2, 2);
+        boardActionManager.click(roomKey1, 3, 1);
+        boardActionManager.click(roomKey1, 3, 2);
 
-        lo.leaveRoom(name2,u1);
-        lo.leaveRoom(name2,u2);
-        lo.leaveRoom(name2,u1);
+        roomActionManager.leave(u1, roomKey2);
+        roomActionManager.leave(u2, roomKey2);
+        roomActionManager.leave(u2, roomKey2);
+        System.out.println("aaa");
 
 
 

@@ -1,7 +1,7 @@
-package FlipFlop.flip.flop.Models;
+package FlipFlop.flip.flop.models.flipFlopGameObjects;
 
 public class BoardCell {
-    //this is the index of image in FlipFlopRoom
+    //this is the index of image in Board
     private final int imageId;
     private CellState cellState;
     public static enum CellState{
@@ -11,6 +11,8 @@ public class BoardCell {
         UNUSED
     }
 
+
+    //this is used for extension such that the board may be shapes other than square or rectangle
     public BoardCell(int imageId, boolean using) {
         this(imageId, using ? CellState.UNFLIPPEDE : CellState.UNUSED);
     }

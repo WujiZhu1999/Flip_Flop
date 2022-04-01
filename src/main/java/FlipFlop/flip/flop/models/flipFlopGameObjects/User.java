@@ -1,4 +1,4 @@
-package FlipFlop.flip.flop.Models;
+package FlipFlop.flip.flop.models.flipFlopGameObjects;
 
 import java.util.Objects;
 

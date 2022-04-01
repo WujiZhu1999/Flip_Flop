@@ -1,0 +1,1 @@
+This folder contains runtime objects of flip flop games, which generally won't have any interaction with DB

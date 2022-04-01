@@ -1,4 +1,4 @@
-package FlipFlop.flip.flop.Models;
+package FlipFlop.flip.flop.models.flipFlopGameObjects;
 
 public class BoardFactory {
     public static void setupBoard(Board board, String difficulty){
