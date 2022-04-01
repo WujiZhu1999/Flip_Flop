@@ -81,6 +81,7 @@ public class FlipFlopLobby {
                 while (FlipFlopLobby.roomNames.contains(room.getRoomName())){
                     room.generateNewName();
                 }
+                FlipFlopLobby.roomNames.add(room.getRoomName());
             }
 
             room.cleaning();
