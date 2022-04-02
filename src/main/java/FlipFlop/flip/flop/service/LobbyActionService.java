@@ -1,15 +1,10 @@
 package FlipFlop.flip.flop.service;
 
-import FlipFlop.flip.flop.models.communicationObjects.RoomObject;
-import FlipFlop.flip.flop.models.communicationObjects.RoomObjects;
-import FlipFlop.flip.flop.models.flipFlopGameObjects.FlipFlopLobby;
 import FlipFlop.flip.flop.models.flipFlopGameObjects.FlipFlopRoom;
 import FlipFlop.flip.flop.models.flipFlopGameObjects.FlipFlopRoomLobby;
 import FlipFlop.flip.flop.models.flipFlopGameObjects.User;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * React to users' action in lobby level
@@ -17,7 +12,7 @@ import java.util.stream.Collectors;
  *  1. Click a button to join any free room
  *  2. Enter a room by room name
  * */
-public class LobbyActionManager {
+public class LobbyActionService {
     private static final int joinRoomTrial = 3;
     /**
      * Join any free room available, if no free room available, return null

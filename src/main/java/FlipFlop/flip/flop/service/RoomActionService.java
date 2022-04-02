@@ -11,7 +11,7 @@ import java.util.Objects;
  * 1. Click to leave the room
  * 2. Click to refresh/start the board
  * */
-public class RoomActionManager {
+public class RoomActionService {
 
     /**
      * handle user leave room action

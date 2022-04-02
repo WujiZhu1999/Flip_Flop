@@ -1,10 +1,9 @@
 package FlipFlop.flip.flop.models.flipFlopGameObjects;
 
 import FlipFlop.flip.flop.models.communicationObjects.BoardObject;
-import FlipFlop.flip.flop.models.communicationObjects.RoomObject;
-import FlipFlop.flip.flop.service.BoardActionManager;
-import FlipFlop.flip.flop.service.LobbyActionManager;
-import FlipFlop.flip.flop.service.RoomActionManager;
+import FlipFlop.flip.flop.service.BoardActionService;
+import FlipFlop.flip.flop.service.LobbyActionService;
+import FlipFlop.flip.flop.service.RoomActionService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -138,9 +137,9 @@ public class FlipFlopLobby {
      */
 
     public static void main(String args[]){
-        RoomActionManager roomActionManager = new RoomActionManager();
-        LobbyActionManager lobbyActionManager = new LobbyActionManager();
-        BoardActionManager boardActionManager = new BoardActionManager();
+        RoomActionService roomActionManager = new RoomActionService();
+        LobbyActionService lobbyActionManager = new LobbyActionService();
+        BoardActionService boardActionService = new BoardActionService();
 
         FlipFlopRoomLobby flipFlopRoomLobby = FlipFlopRoomLobby.getInstance();
         User u1 = new User("LUC");
@@ -152,12 +151,12 @@ public class FlipFlopLobby {
         Board board = FlipFlopRoomLobby.getInstance().getRoom(roomKey1).getBoard();
         FlipFlopRoom room =FlipFlopRoomLobby.getInstance().getRoom(roomKey1);
         BoardObject boardObject = roomActionManager.getNewBoard(roomKey1);
-        boardActionManager.click(roomKey1, 1, 1);
-        boardActionManager.click(roomKey1, 1, 2);
-        boardActionManager.click(roomKey1, 2, 1);
-        boardActionManager.click(roomKey1, 2, 2);
-        boardActionManager.click(roomKey1, 3, 1);
-        boardActionManager.click(roomKey1, 3, 2);
+        boardActionService.click(roomKey1, 1, 1);
+        boardActionService.click(roomKey1, 1, 2);
+        boardActionService.click(roomKey1, 2, 1);
+        boardActionService.click(roomKey1, 2, 2);
+        boardActionService.click(roomKey1, 3, 1);
+        boardActionService.click(roomKey1, 3, 2);
 
         roomActionManager.leave(u1, roomKey2);
         roomActionManager.leave(u2, roomKey2);

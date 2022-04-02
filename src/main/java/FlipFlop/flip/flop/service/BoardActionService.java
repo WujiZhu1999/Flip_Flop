@@ -1,6 +1,5 @@
 package FlipFlop.flip.flop.service;
 
-import FlipFlop.flip.flop.models.communicationObjects.BoardObject;
 import FlipFlop.flip.flop.models.communicationObjects.BoardUpdateObject;
 import FlipFlop.flip.flop.models.communicationObjects.CellObject;
 import FlipFlop.flip.flop.models.flipFlopGameObjects.*;
@@ -13,7 +12,7 @@ import java.util.Objects;
  * 1. Click
  * */
 
-public class BoardActionManager {
+public class BoardActionService {
 
     //Click
     public BoardUpdateObject click(String roomKey, int x, int y){
