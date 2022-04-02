@@ -15,3 +15,9 @@ https://spring.io/guides/gs/messaging-stomp-websocket/
 
 ## S3 storage
 https://aws.amazon.com/getting-started/hands-on/backup-files-to-amazon-s3/
+
+
+## Useful urls
+https://mkyong.com/spring-mvc/spring-mvc-refactoring-a-jquery-ajax-post-example/
+https://www.youtube.com/watch?v=vtPkZShrvXQ
+https://www.youtube.com/watch?v=96ompySpPHE
