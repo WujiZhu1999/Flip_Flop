@@ -21,3 +21,7 @@ https://aws.amazon.com/getting-started/hands-on/backup-files-to-amazon-s3/
 https://mkyong.com/spring-mvc/spring-mvc-refactoring-a-jquery-ajax-post-example/
 https://www.youtube.com/watch?v=vtPkZShrvXQ
 https://www.youtube.com/watch?v=96ompySpPHE
+https://www.baeldung.com/spring-redirect-and-forward
+https://www.baeldung.com/spring-mvc-model-model-map-model-view
+https://stackoverflow.com/questions/18486660/what-are-the-differences-between-model-modelmap-and-modelandview
+https://www.baeldung.com/spring-thymeleaf-request-parameters

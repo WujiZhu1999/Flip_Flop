@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,12 +7,13 @@
     <script type="text/javascript" th:src="@{/js/HomePage.js}"></script>
 </head>
 <body>
-    <form id = "joinForm">
-
-        <input type="text" id="joinRoomUsername" maxlength="10">
-        <input type="text" id="joinRoomKey" maxlength="16">
-        <button id = "joinButton">Start Game</button>
+    <form method="post" th:action="@{/join}" id="joinGameForm">
+        <input type="text" th:name="joinRoomUsername" id="joinRoomUsername"/>
+        <input type="text" th:name="joinRoomKey" id="joinRoomKey"/>
+        <button id="joinGameButton">join</button>
     </form>
+
+
 
 </body>
 </html>

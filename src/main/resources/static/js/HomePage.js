@@ -1,21 +1,27 @@
 let nameKeyRegex = /[^A-Za-z0-9]+/
 
 function joinNewGame(){
-    var key = $("#joinRoomUsername").val();
-    if(nameKeyRegex.test(key)) {
+    let userName = $("#joinRoomUsername").val();
+    if(nameKeyRegex.test(userName)) {
         alert("Name can only contain digits and letters.");
         return;
     }
 
-    if(key.length === 0) {
+    if(userName.length === 0) {
         alert("Name can not be empty.");
         return;
     }
 
+    let roomKey = $("#joinRoomKey").val();
+    if(nameKeyRegex.test(roomKey)) {
+        alert("Name can only contain digits and letters.");
+        return;
+    }
 
-    alert("submitted");
+    $("#joinGameForm").submit();
+
 }
 
 $(function () {
-    $("#joinForm").submit(function () {joinNewGame();});
+    $("#joinGameButton").click(function () {joinNewGame();});
 });
