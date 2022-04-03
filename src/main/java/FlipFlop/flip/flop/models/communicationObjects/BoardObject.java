@@ -9,6 +9,7 @@ import java.util.Objects;
 public class BoardObject {
 
     private List<List<CellObject>> cells;
+    private int version;
 
     public List<List<CellObject>> getCells() {
         return cells;
@@ -23,5 +24,13 @@ public class BoardObject {
             this.cells = new ArrayList<>();
         }
         this.cells.add(new ArrayList<>());
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public int getVersion() {
+        return version;
     }
 }

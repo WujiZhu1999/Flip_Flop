@@ -12,6 +12,14 @@
 <div>aaaaaaaaaaa</div>
 <button id = "getNewGameButton">Start a new Game</button>
 <div id="roomKey" th:text="${roomKey}"></div>
+<script th:inline="javascript">
+    var start = [[${gameIsStart}]];
+    if(start){
+        askToFetchGame();
+    }
+</script>
+
+<div id = "boardTable"></div>
 
 </body>
 </html>

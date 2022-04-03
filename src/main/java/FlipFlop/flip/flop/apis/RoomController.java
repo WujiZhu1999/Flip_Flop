@@ -1,6 +1,9 @@
 package FlipFlop.flip.flop.apis;
 
 import FlipFlop.flip.flop.models.communicationObjects.BoardObject;
+import FlipFlop.flip.flop.models.communicationObjects.FlipFlopSocketObject;
+import FlipFlop.flip.flop.service.RoomActionService;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -12,27 +15,37 @@ import javax.websocket.server.PathParam;
 @Controller
 public class RoomController {
 
+    RoomActionService roomActionService = new RoomActionService();
+
     @GetMapping("/room")
     public String getRoom(
             @ModelAttribute("roomKey") String roomKey,
             Model model
     ){
         model.addAttribute("roomKey", roomKey);
+        model.addAttribute("gameIsStart", roomActionService.gameIsStart(roomKey));
         return "Room/Room";
     }
 
-    @RequestMapping("/newGame/{key}")
-    @ResponseBody
-    public BoardObject startNewGame(
-            @PathVariable(value = "key") String key
+    @MessageMapping("/newGame/{key}")
+    @SendTo("/flipflop/{key}")
+    public FlipFlopSocketObject startNewGame(
+            @DestinationVariable(value = "key") String key
     ){
-        System.out.println(key);
-        return new BoardObject();
+        FlipFlopSocketObject flipFlopSocketObject = new FlipFlopSocketObject();
+        BoardObject newBoard = roomActionService.getNewBoard(key);
+        flipFlopSocketObject.setBoardObject(newBoard);
+        return flipFlopSocketObject;
     }
 
-    @MessageMapping("/testConnection")
-    @SendTo("/flipflop/room1")
-    public String newGame(){
-        return "successful connection!";
+    @MessageMapping("/currentGame/{key}")
+    @SendTo("/flipflop/{key}")
+    public FlipFlopSocketObject getCurrentGame(
+            @DestinationVariable(value = "key") String key
+    ){
+        FlipFlopSocketObject flipFlopSocketObject = new FlipFlopSocketObject();
+        BoardObject currentBoard = roomActionService.getCurrentBoard(key);
+        flipFlopSocketObject.setBoardObject(currentBoard);
+        return flipFlopSocketObject;
     }
 }

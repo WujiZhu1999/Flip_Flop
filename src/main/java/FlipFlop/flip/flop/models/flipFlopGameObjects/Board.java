@@ -7,9 +7,10 @@ import java.util.*;
 public class Board {
     private List<Image> images;
     private Image backgroundImage;
-    private int boardWidth;
-    private int boardHeight;
+    private int boardWidth = -1;
+    private int boardHeight = -1;
     private List<List<BoardCell>> board;
+    private int version = 0;
 
     //this is the number of same looking images have to be flipped at once
     private int flipCount;
@@ -71,6 +72,10 @@ public class Board {
         return backgroundImage;
     }
 
+    public int getVersion() {
+        return version;
+    }
+
     /**
      * Getter ends
      * */
@@ -113,6 +118,8 @@ public class Board {
     }
 
     public void generateNewBoard(int newW, int newH, int flipCount){
+        this.version = this.version + 1;
+
         if(this.images.isEmpty() || Objects.isNull(this.backgroundImage)) {
             return;
         }
