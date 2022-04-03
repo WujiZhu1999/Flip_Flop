@@ -16,14 +16,10 @@ import java.util.Objects;
 public class LobbyController {
     private LobbyActionService lobbyActionService = new LobbyActionService();
 
-    @GetMapping("/")
+    @GetMapping("/lobby")
     public String getLobby(
-            @RequestParam(value = "errorMessage", required=false) String errorMessage,
             Model model
     ){
-        if(!Objects.isNull(errorMessage)){
-            model.addAttribute("errorMessage", errorMessage);
-        }
         return "Lobby/HomePage";
     }
 
@@ -41,14 +37,23 @@ public class LobbyController {
         }
 
         if(Objects.isNull(returnStringKey)){
+
+            /**
+             * addAttribute actually put params in url and should be processed with @RequestParam,
+             * addFlashAttribute directly put into the model
+             * */
             if(Objects.isNull(roomKey) || roomKey.isEmpty()){
-                attributes.addAttribute("errorMessage","Server full.");
+                attributes.addFlashAttribute("errorMessage","Server full.");
             } else {
-                attributes.addAttribute("errorMessage","Room not exist.");
+                attributes.addFlashAttribute("errorMessage","Room not exist.");
             }
-            return new RedirectView("/");
+            RedirectView redirectView = new RedirectView("/lobby");
+            redirectView.setExposeModelAttributes(false);
+            return redirectView;
         } else {
-            return new RedirectView("/room");
+            RedirectView redirectView = new RedirectView("/room");
+            redirectView.setExposeModelAttributes(false);
+            return redirectView;
         }
 
 

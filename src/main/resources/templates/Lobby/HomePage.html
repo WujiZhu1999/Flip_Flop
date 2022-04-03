@@ -14,8 +14,10 @@
     </form>
 
     <script th:inline="javascript">
-        alert("aaa");
-        alert([[${errorMessage}]]);
+        var error = [[${errorMessage}]];
+        if(error !== null){
+            alert(error);
+        }
     </script>
 
 
