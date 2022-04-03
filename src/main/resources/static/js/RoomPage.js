@@ -1,7 +1,6 @@
 var flipFlopClient;
-
+var roomKey;
 function connectToRoom(){
-    alert("aaab");
     var socket = new SockJS('/flipFlopSocket01');
     flipFlopClient = Stomp.over(socket);
     flipFlopClient.connect({}, function (frame){
@@ -13,12 +12,27 @@ function connectToRoom(){
 
 }
 
+function fetchRoomKey(){
+    roomKey = $("#roomKey").text();
+}
+
 function startNewGame(){
-    flipFlopClient.send("/flipflop/newGame", {}, {});
+
+    $.ajax({
+        type: "get",
+        url: "/newGame/111",
+        cache: false,
+        success: function(response) {
+            console.log(response);
+        }
+    });
 }
 
 $(document).ready( function(){
+    fetchRoomKey();
     connectToRoom();
+
+
 });
 
 $(function (){
