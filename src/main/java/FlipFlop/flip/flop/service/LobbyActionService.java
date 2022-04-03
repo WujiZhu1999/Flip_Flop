@@ -21,12 +21,13 @@ public class LobbyActionService {
         int trials = 3;
         FlipFlopRoom room = new FlipFlopRoom();
         String roomKey = null;
+
         while(Objects.isNull(roomKey) && trials > 0){
             roomKey = FlipFlopRoomLobby.getInstance().addRoom(room);
             trials = trials - 1;
         }
 
-        if (Objects.isNull(room)) {
+        if (Objects.isNull(roomKey)) {
             return null;
         } else {
 

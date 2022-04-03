@@ -8,10 +8,15 @@
 </head>
 <body>
     <form method="post" th:action="@{/join}" id="joinGameForm">
-        <input type="text" th:name="joinRoomUsername" id="joinRoomUsername"/>
-        <input type="text" th:name="joinRoomKey" id="joinRoomKey"/>
+        <input type="text" th:name="userName" id="joinRoomUsername"/>
+        <input type="text" th:name="roomKey" id="joinRoomKey"/>
         <button id="joinGameButton">join</button>
     </form>
+
+    <script th:inline="javascript">
+        alert("aaa");
+        alert([[${errorMessage}]]);
+    </script>
 
 
 
