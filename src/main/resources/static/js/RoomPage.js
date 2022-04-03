@@ -31,6 +31,13 @@ function connectToRoom(){
 
             if(version > localBoardVersion) {
                 loadBoard(responseBody.boardObject);
+            } else if (version == localBoardVersion){
+
+                if (responseBody.boardUpdateObject !== null){
+                    updateBoard(responseBody.boardUpdateObject);
+                }
+            } else {
+                //synchronisation error
             }
 
             console.log(responseBody);
@@ -81,6 +88,16 @@ function loadBoard(boardObject){
 
 }
 
+function updateBoard(updateObject){
+    for(cell of updateObject.cells){
+        changeImage("#"+cell.x+cell.y,cell.image.path);
+    }
+}
+
+function changeImage(id, url){
+    $(id).attr("src",url);
+}
+
 function getImageString(cell){
     var out = "<img id=\"" + cell.x + cell.y + "\" src= \"" + cell.image.path + "\" />"
     return out;
@@ -89,6 +106,18 @@ function getImageString(cell){
 $(document).ready( function(){
     fetchRoomKey();
     connectToRoom();
+
+    $('#boardTable').click( function(event) {
+        var target = $(event.target);
+        $td = target.closest('td');
+
+        var col   = $td.index();
+        var row   = $td.closest('tr').index();
+
+        flipFlopClient.send("/flipflop/click/"+roomKey, {}, JSON.stringify({'roomKey':roomKey, 'x': row,'y': col, 'version':localBoardVersion}));
+
+
+    });
 
 
 });
