@@ -25,3 +25,4 @@ https://www.baeldung.com/spring-redirect-and-forward
 https://www.baeldung.com/spring-mvc-model-model-map-model-view
 https://stackoverflow.com/questions/18486660/what-are-the-differences-between-model-modelmap-and-modelandview
 https://www.baeldung.com/spring-thymeleaf-request-parameters
+https://spring.io/guides/gs/messaging-stomp-websocket/

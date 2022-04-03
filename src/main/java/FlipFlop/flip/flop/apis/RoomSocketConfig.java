@@ -1,4 +1,4 @@
-package FlipFlop.flip.flop;
+package FlipFlop.flip.flop.apis;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -8,17 +8,18 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 
 @Configuration
 @EnableWebSocketMessageBroker
-public class FFConfig implements WebSocketMessageBrokerConfigurer {
+public class RoomSocketConfig implements WebSocketMessageBrokerConfigurer {
+
     @Override
-    public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/ffGame");
-        config.setApplicationDestinationPrefixes("/ffApp");
+    public void configureMessageBroker(MessageBrokerRegistry config){
+        config.enableSimpleBroker("/flipflop");
+
+        //so that request come to RoomController regarding socket have to add /flipflop prefix
+        config.setApplicationDestinationPrefixes("/flipflop");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ff-socket").withSockJS();
-        registry.addEndpoint("/ff2-socket").withSockJS();
-        registry.addEndpoint("/ff3-socket").withSockJS();
+        registry.addEndpoint("/flipFlopSocket01").withSockJS();
     }
 }
