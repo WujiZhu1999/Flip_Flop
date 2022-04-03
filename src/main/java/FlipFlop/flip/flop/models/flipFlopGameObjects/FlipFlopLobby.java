@@ -151,12 +151,12 @@ public class FlipFlopLobby {
         Board board = FlipFlopRoomLobby.getInstance().getRoom(roomKey1).getBoard();
         FlipFlopRoom room =FlipFlopRoomLobby.getInstance().getRoom(roomKey1);
         BoardObject boardObject = roomActionManager.getNewBoard(roomKey1);
-        boardActionService.click(roomKey1, 1, 1);
-        boardActionService.click(roomKey1, 1, 2);
-        boardActionService.click(roomKey1, 2, 1);
-        boardActionService.click(roomKey1, 2, 2);
-        boardActionService.click(roomKey1, 3, 1);
-        boardActionService.click(roomKey1, 3, 2);
+        boardActionService.click(roomKey1, 1, 1,1);
+        boardActionService.click(roomKey1, 1, 2,1);
+        boardActionService.click(roomKey1, 2, 1,1);
+        boardActionService.click(roomKey1, 2, 2,1);
+        boardActionService.click(roomKey1, 3, 1,1);
+        boardActionService.click(roomKey1, 3, 2,1);
 
         roomActionManager.leave(u1, roomKey2);
         roomActionManager.leave(u2, roomKey2);

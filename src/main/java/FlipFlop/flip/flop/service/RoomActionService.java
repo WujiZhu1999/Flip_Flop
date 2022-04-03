@@ -89,7 +89,12 @@ public class RoomActionService {
             boardObject.addRows();
             for (int y = 0; y < height; y++){
                 BoardCell cell = board.getCell(x,y);
-                boardObject.addCells(new CellObject(board.getImage(cell.getImage()), x, y));
+                if(cell.getCellState().equals(BoardCell.CellState.UNFLIPPEDE)){
+                    boardObject.addCells(new CellObject(board.getBackgroundImage(), x, y));
+                } else {
+                    boardObject.addCells(new CellObject(board.getImage(cell.getImage()), x, y));
+                }
+
             }
         }
 

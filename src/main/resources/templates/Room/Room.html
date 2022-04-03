@@ -19,6 +19,12 @@
     }
 </script>
 
+<form method="post" th:action="@{/leave/${roomKey}}" id="leaveGameForm">
+    <input type="text" th:name="userName" id="leaveRoomUsername" th:value="${userName}"/>
+    <input type="text" th:name="roomKey" id="leaveRoomKey" th:value="${roomKey}"/>
+    <button id="leaveRoomButton">leave</button>
+</form>
+
 <div id = "boardTable"></div>
 
 </body>

@@ -15,7 +15,8 @@ import java.util.Objects;
 public class BoardActionService {
 
     //Click
-    public BoardUpdateObject click(String roomKey, int x, int y){
+    public BoardUpdateObject click(String roomKey, int x, int y, int version){
+
         FlipFlopRoom room = FlipFlopRoomLobby.getInstance().getRoom(roomKey);
 
         if(Objects.isNull(room)){
@@ -23,6 +24,10 @@ public class BoardActionService {
         }
 
         Board board = room.getBoard();
+
+        if(board.getVersion()!=version){
+            return null;
+        }
 
         BoardCell cell = board.getCell(x,y);
 

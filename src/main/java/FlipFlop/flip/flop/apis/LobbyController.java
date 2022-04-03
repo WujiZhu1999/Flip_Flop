@@ -53,6 +53,7 @@ public class LobbyController {
         } else {
             RedirectView redirectView = new RedirectView("/room");
             attributes.addFlashAttribute("roomKey",returnStringKey);
+            attributes.addFlashAttribute("userName", userName);
             redirectView.setExposeModelAttributes(false);
             return redirectView;
         }
