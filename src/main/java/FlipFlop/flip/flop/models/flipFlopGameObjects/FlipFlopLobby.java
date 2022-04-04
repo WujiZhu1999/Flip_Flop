@@ -10,6 +10,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * Deprecated, all functionality now moves to FlipFlopRoomLobby.java
+ *
+ */
+
 public class FlipFlopLobby {
     private static List<FlipFlopRoom> rooms;
     private static List<String> roomNames;
