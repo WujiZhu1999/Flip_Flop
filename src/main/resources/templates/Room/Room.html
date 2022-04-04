@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
     <head>
         <meta charset="UTF-8">
         <title>Title</title>
@@ -7,33 +7,46 @@
         <script src="/webjars/sockjs-client/sockjs.min.js"></script>
         <script src="/webjars/stomp-websocket/stomp.min.js"></script>
         <script type="text/javascript" th:src="@{/js/RoomPage.js}"></script>
+        <link th:href="@{/css/RoomPage.css}" rel="stylesheet" />
     </head>
-
     <body>
-    <button id = "getNewGameButton">Start a new Game</button>
-    <select id = "newGameDifficulty">
-        <option value="" selected disabled hidden>Choose Difficulty for New Game</option>
-        <option value="easy">easy</option>
-        <option value="normal">normal</option>
-        <option value="hard">hard</option>
-        <option value="insane">insane</option>
-        <option value="ha">ha</option>
-    </select>
-    <div id="roomKey" th:text="${roomKey}"></div>
+
+    <div id = "controlPanel">
+        <div id = "openGameDropDownMenu" class="menuLineCell"> <p class="dropDownMenuText">Menu</p> </div>
+        <div class="gameControlObject menuLineCell">
+            <button id = "getNewGameButton">New Game</button>
+        </div>
+        <div class="gameControlObject menuLineCell">
+            <select id = "newGameDifficulty">
+                <option value="" selected disabled hidden>Choose Difficulty for New Game</option>
+                <option value="easy">easy</option>
+                <option value="normal">normal</option>
+                <option value="hard">hard</option>
+                <option value="insane">insane</option>
+                <option value="ha">ha</option>
+            </select>
+        </div>
+
+        <div class="gameControlObject menuLineCell">
+            <p id="roomKey" class="dropDownMenuText" th:text="${roomKey}"></p>
+        </div>
+
+        <div class="gameControlObject menuLineCell">
+            <form method="post" th:action="@{/leave/${roomKey}}" id="leaveGameForm">
+                <input style="display: none" type="text" th:name="userName" id="leaveRoomUsername" th:value="${userName}" />
+                <input style="display: none" type="text" th:name="roomKey" id="leaveRoomKey" th:value="${roomKey}"/>
+                <button id="leaveRoomButton">leave</button>
+            </form>
+        </div>
+
+        <div class="gameControlObject menuLineCell" id="closeGameDropDownMenu"><p class="dropDownMenuText">X Close</p></div>
+    </div>
+    <div id = "boardTable"></div>
     <script th:inline="javascript">
         var start = [[${gameIsStart}]];
         if(start){
             askToFetchGame();
         }
     </script>
-
-    <form method="post" th:action="@{/leave/${roomKey}}" id="leaveGameForm">
-        <input type="text" th:name="userName" id="leaveRoomUsername" th:value="${userName}"/>
-        <input type="text" th:name="roomKey" id="leaveRoomKey" th:value="${roomKey}"/>
-        <button id="leaveRoomButton">leave</button>
-    </form>
-
-    <div id = "boardTable"></div>
-
     </body>
 </html>

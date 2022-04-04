@@ -120,11 +120,31 @@ $(document).ready( function(){
 
         flipFlopClient.send("/flipflop/click/"+roomKey, {}, JSON.stringify({'roomKey':roomKey, 'x': row,'y': col, 'version':localBoardVersion}));
 
-
     });
+
+    $('#openGameDropDownMenu').click(function (event){
+        showDropDown();
+    })
+
+    $('#closeGameDropDownMenu').click(function (event){
+        closeDropDown();
+    })
+
+
 
 
 });
+
+function showDropDown(){
+    $('#openGameDropDownMenu').css("display","none");
+    $('.gameControlObject').css("display","block");
+
+}
+
+function closeDropDown(){
+    $('#openGameDropDownMenu').css("display","block");
+    $('.gameControlObject').css("display","none");
+}
 
 $(function (){
     $("#getNewGameButton").click(function (){
