@@ -2,7 +2,9 @@ var flipFlopClient;
 var roomKey;
 var localBoardVersion = 0;
 var needFetchCurrentGame = false;
-
+var backGroundImageUrl = "";
+var successFlip = 0;
+var requiredFlip = 0;
 
 function connectToRoom(){
     var socket = new SockJS('/flipFlopSocket01');
@@ -35,6 +37,9 @@ function connectToRoom(){
 
                 if (responseBody.boardUpdateObject !== null){
                     updateBoard(responseBody.boardUpdateObject);
+                    if(successFlip === requiredFlip){
+                        alert("Win :)");
+                    }
                 }
             } else {
                 //synchronisation error
@@ -76,11 +81,17 @@ function fetchGame(){
 function loadBoard(boardObject){
     localBoardVersion = localBoardVersion + 1;
     $("#boardTable").empty();
-
+    backGroundImageUrl = "";
+    //assume this is square shape and there will be no unused shape
+    requiredFlip = boardObject.cells.length*boardObject.cells[0].length;
+    successFlip = 0;
     var table = "<table id=\"board\">";
     for (row of boardObject.cells){
         table = table.concat("<tr>");
         for(cell of row){
+            if(backGroundImageUrl.length===0){
+                backGroundImageUrl = cell.image.path;
+            }
             table = table.concat("<td>");
             table = table.concat(getImageString(cell));
             table = table.concat("</td>");
@@ -88,7 +99,6 @@ function loadBoard(boardObject){
         table = table.concat("</tr>");
     }
     table.concat("</table>")
-
     $("#boardTable").append(table);
 
     windowResize();
@@ -96,8 +106,15 @@ function loadBoard(boardObject){
 }
 
 function updateBoard(updateObject){
+
     for(cell of updateObject.cells){
+        if(cell.image.path === backGroundImageUrl){
+            successFlip = successFlip - 1;
+        }else {
+            successFlip = successFlip + 1;
+        }
         changeImage("#"+cell.x+cell.y,cell.image.path);
+        //alert(successFlip);
     }
 }
 

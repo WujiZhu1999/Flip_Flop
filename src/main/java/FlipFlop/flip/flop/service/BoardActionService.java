@@ -79,9 +79,11 @@ public class BoardActionService {
 
                     coor = onSelect.remove(0);
                     board.getCell(coor.w, coor.h).flipDone();
-                    updates.setCells(
-                            new CellObject(board.getImage(board.getCell(coor.w,coor.h).getImage()), coor.w, coor.h));
+
+                    //Only the one submitted this time needs to get updated
+                    //updates.setCells(new CellObject(board.getImage(board.getCell(coor.w,coor.h).getImage()), coor.w, coor.h));
                 }
+                updates.setCells(new CellObject(board.getImage(cell.getImage()),x,y));
                 return updates;
             }
 
