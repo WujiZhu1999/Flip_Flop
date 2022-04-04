@@ -64,6 +64,23 @@ option{
 
 
 
+
+
+#boardTable {
+    height: 85%;
+}
+
+#board {
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
 table {
     table-layout: fixed;
 }

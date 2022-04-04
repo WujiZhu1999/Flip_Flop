@@ -39,10 +39,10 @@ function connectToRoom(){
             } else {
                 //synchronisation error
             }
-
             console.log(responseBody);
             console.log("here");
         });
+
         if(needFetchCurrentGame){
             needFetchCurrentGame = false;
             fetchGame();
@@ -56,6 +56,7 @@ function fetchRoomKey(){
 }
 
 function startNewGame(){
+    closeDropDown();
     var difficulty = $("#newGameDifficulty").find(":selected").val();
     if(difficulty.length === 0) {
         alert("Select game difficulty.")
@@ -76,7 +77,7 @@ function loadBoard(boardObject){
     localBoardVersion = localBoardVersion + 1;
     $("#boardTable").empty();
 
-    var table = "<table>";
+    var table = "<table id=\"board\">";
     for (row of boardObject.cells){
         table = table.concat("<tr>");
         for(cell of row){
@@ -89,6 +90,8 @@ function loadBoard(boardObject){
     table.concat("</table>")
 
     $("#boardTable").append(table);
+
+    windowResize();
 
 }
 
@@ -103,7 +106,8 @@ function changeImage(id, url){
 }
 
 function getImageString(cell){
-    var out = "<img id=\"" + cell.x + cell.y + "\" src= \"" + cell.image.path + "\" />"
+    var out = "<img id=\"" + cell.x + cell.y + "\" src= \"" + cell.image.path + "\" style=\"height: auto, width:auto\" >"
+    //var out = "hellp";
     return out;
 }
 
@@ -133,6 +137,8 @@ $(document).ready( function(){
 
 
 
+
+
 });
 
 function showDropDown(){
@@ -145,6 +151,24 @@ function closeDropDown(){
     $('#openGameDropDownMenu').css("display","block");
     $('.gameControlObject').css("display","none");
 }
+
+function windowResize(){
+    if ($(window).width() < $(window).height()*0.85) {
+        $("#board").width("100%");
+        $("#board").height($("#board").width());
+    } else {
+        /**
+         * Scroll bar issue, since the window size change won't change the height of page(div) it will generate scroll
+         * bar instead, thus change based on height(100%) is pretty dangerous.
+         * */
+        $("#board").width($(window).height()*0.85);
+        $("#board").height($("#board").width());
+    }
+}
+
+$(window).resize(function(){
+    windowResize();
+});
 
 $(function (){
     $("#getNewGameButton").click(function (){
