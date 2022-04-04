@@ -31,13 +31,14 @@ public class RoomController {
         return "Room/Room";
     }
 
-    @MessageMapping("/newGame/{key}")
+    @MessageMapping("/newGame/{key}/{difficulty}")
     @SendTo("/flipflop/{key}")
     public FlipFlopSocketObject startNewGame(
-            @DestinationVariable(value = "key") String key
+            @DestinationVariable(value = "key") String key,
+            @DestinationVariable(value = "difficulty") String difficulty
     ){
         FlipFlopSocketObject flipFlopSocketObject = new FlipFlopSocketObject();
-        BoardObject newBoard = roomActionService.getNewBoard(key);
+        BoardObject newBoard = roomActionService.getNewBoard(key, difficulty);
         flipFlopSocketObject.setBoardObject(newBoard);
         return flipFlopSocketObject;
     }

@@ -11,6 +11,14 @@
 
     <body>
     <button id = "getNewGameButton">Start a new Game</button>
+    <select id = "newGameDifficulty">
+        <option value="" selected disabled hidden>Choose Difficulty for New Game</option>
+        <option value="easy">easy</option>
+        <option value="normal">normal</option>
+        <option value="hard">hard</option>
+        <option value="insane">insane</option>
+        <option value="ha">ha</option>
+    </select>
     <div id="roomKey" th:text="${roomKey}"></div>
     <script th:inline="javascript">
         var start = [[${gameIsStart}]];

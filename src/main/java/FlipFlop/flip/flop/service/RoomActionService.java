@@ -35,7 +35,7 @@ public class RoomActionService {
     /**
      * handle user refresh/start button board action
      * */
-    public BoardObject getNewBoard(String roomKey){
+    public BoardObject getNewBoard(String roomKey, String difficulty){
         FlipFlopRoom room = FlipFlopRoomLobby.getInstance().getRoom(roomKey);
 
         if(Objects.isNull(room)){
@@ -43,7 +43,7 @@ public class RoomActionService {
         }
 
         Board board = room.getBoard();
-        BoardFactory.setupBoard(board, "easy");
+        BoardFactory.setupBoard(board, difficulty);
 
         return getBoard(board);
 

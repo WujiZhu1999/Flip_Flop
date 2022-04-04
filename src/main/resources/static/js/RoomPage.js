@@ -56,8 +56,12 @@ function fetchRoomKey(){
 }
 
 function startNewGame(){
-
-    flipFlopClient.send("/flipflop/newGame/"+roomKey, {}, {});
+    var difficulty = $("#newGameDifficulty").find(":selected").val();
+    if(difficulty.length === 0) {
+        alert("Select game difficulty.")
+    } else {
+        flipFlopClient.send("/flipflop/newGame/"+roomKey+"/"+difficulty, {}, {});
+    }
 }
 
 function askToFetchGame(){
