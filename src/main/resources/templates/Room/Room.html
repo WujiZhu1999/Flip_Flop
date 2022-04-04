@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="/webjars/jquery/jquery.min.js"></script>
-    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-    <script type="text/javascript" th:src="@{/js/RoomPage.js}"></script>
-</head>
-<body>
-<div>aaaaaaaaaaa</div>
-<button id = "getNewGameButton">Start a new Game</button>
-<div id="roomKey" th:text="${roomKey}"></div>
-<script th:inline="javascript">
-    var start = [[${gameIsStart}]];
-    if(start){
-        askToFetchGame();
-    }
-</script>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <script src="/webjars/jquery/jquery.min.js"></script>
+        <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+        <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+        <script type="text/javascript" th:src="@{/js/RoomPage.js}"></script>
+    </head>
 
-<form method="post" th:action="@{/leave/${roomKey}}" id="leaveGameForm">
-    <input type="text" th:name="userName" id="leaveRoomUsername" th:value="${userName}"/>
-    <input type="text" th:name="roomKey" id="leaveRoomKey" th:value="${roomKey}"/>
-    <button id="leaveRoomButton">leave</button>
-</form>
+    <body>
+    <button id = "getNewGameButton">Start a new Game</button>
+    <div id="roomKey" th:text="${roomKey}"></div>
+    <script th:inline="javascript">
+        var start = [[${gameIsStart}]];
+        if(start){
+            askToFetchGame();
+        }
+    </script>
 
-<div id = "boardTable"></div>
+    <form method="post" th:action="@{/leave/${roomKey}}" id="leaveGameForm">
+        <input type="text" th:name="userName" id="leaveRoomUsername" th:value="${userName}"/>
+        <input type="text" th:name="roomKey" id="leaveRoomKey" th:value="${roomKey}"/>
+        <button id="leaveRoomButton">leave</button>
+    </form>
 
-</body>
+    <div id = "boardTable"></div>
+
+    </body>
 </html>

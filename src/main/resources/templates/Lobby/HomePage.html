@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="/webjars/jquery/jquery.min.js"></script>
-    <script type="text/javascript" th:src="@{/js/HomePage.js}"></script>
-</head>
-<body>
-    <form method="post" th:action="@{/join}" id="joinGameForm">
-        <input type="text" th:name="userName" id="joinRoomUsername"/>
-        <input type="text" th:name="roomKey" id="joinRoomKey"/>
-        <button id="joinGameButton">join</button>
-    </form>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <script src="/webjars/jquery/jquery.min.js"></script>
+        <script type="text/javascript" th:src="@{/js/HomePage.js}"></script>
+        <link th:href="@{/css/HomePage.css}" rel="stylesheet" />
+    </head>
+
+    <body>
+        <form method="post" th:action="@{/join}" id="joinGameForm" autocomplete="off">
+            <input type="text" th:name="userName" id="joinRoomUsername" maxlength="15" placeholder="User Name"/>
+            <input type="text" th:name="roomKey" id="joinRoomKey" maxlength="15" placeholder="(Optional)RoomKey"/>
+            <button id="joinGameButton">Join Flip Flop Room</button>
+        </form>
+    </body>
 
     <script th:inline="javascript">
         var error = [[${errorMessage}]];
@@ -19,8 +22,4 @@
             alert(error);
         }
     </script>
-
-
-
-</body>
 </html>
