@@ -84,3 +84,7 @@ img {
 table {
     table-layout: fixed;
 }
+
+#controlPanel{
+    font-family: Arial;
+}
