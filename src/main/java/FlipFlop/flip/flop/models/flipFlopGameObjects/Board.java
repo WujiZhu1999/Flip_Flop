@@ -18,6 +18,9 @@ public class Board {
     //this is the current image on hold, -1 means no image on hold
     private int onHoldImageId;
 
+    //count to already flipped, to indicate if win
+    private int flipped;
+
     public static class Coor {
         public final int w;
         public final int h;
@@ -76,6 +79,10 @@ public class Board {
         return version;
     }
 
+    public boolean gameOver() {
+        return (this.flipped == this.boardWidth*this.boardHeight);
+    }
+
     /**
      * Getter ends
      * */
@@ -127,6 +134,7 @@ public class Board {
         this.boardWidth = newW;
         this.boardHeight = newH;
         this.flipCount = flipCount;
+        this.flipped = 0;
         this.board.clear();
 
         List<BoardCell> cells = new ArrayList<>();
@@ -156,6 +164,8 @@ public class Board {
     public void addOnSelect(Coor coor) {
         this.onSelect.add(coor);
     }
+
+    public void flipOneMore() { this.flipped = this.flipped + 1; }
 
     /**
      * Setters end

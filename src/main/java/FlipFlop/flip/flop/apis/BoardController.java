@@ -27,10 +27,12 @@ public class BoardController {
                 .click(key, clickRequestObject.getX(), clickRequestObject.getY(), clickRequestObject.getVersion());
 
         BoardObject boardObject = roomActionService.getCurrentBoard(key);
+        Boolean gameOver = boardActionService.gameOver(key);
 
         FlipFlopSocketObject flipFlopSocketObject = new FlipFlopSocketObject();
         flipFlopSocketObject.setBoardObject(boardObject);
         flipFlopSocketObject.setBoardUpdateObject(boardUpdateObject);
+        flipFlopSocketObject.setGameOver(gameOver);
         return flipFlopSocketObject;
 
     }

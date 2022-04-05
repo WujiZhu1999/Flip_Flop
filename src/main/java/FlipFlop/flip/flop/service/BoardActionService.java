@@ -10,6 +10,7 @@ import java.util.Objects;
 /**
  * Used to react to users' operation after game starts
  * 1. Click
+ * 2. Check if game over
  * */
 
 public class BoardActionService {
@@ -79,6 +80,7 @@ public class BoardActionService {
 
                     coor = onSelect.remove(0);
                     board.getCell(coor.w, coor.h).flipDone();
+                    board.flipOneMore();
 
                     //Only the one submitted this time needs to get updated
                     //updates.setCells(new CellObject(board.getImage(board.getCell(coor.w,coor.h).getImage()), coor.w, coor.h));
@@ -92,5 +94,16 @@ public class BoardActionService {
 
         return null;
 
+    }
+
+    public boolean gameOver(String roomKey){
+        FlipFlopRoom room = FlipFlopRoomLobby.getInstance().getRoom(roomKey);
+
+        if(Objects.isNull(room)){
+            return false;
+        }
+
+        Board board = room.getBoard();
+        return board.gameOver();
     }
 }
