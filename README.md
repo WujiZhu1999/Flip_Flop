@@ -34,3 +34,7 @@ https://spring.io/guides/gs/messaging-stomp-websocket/
 
 ## Security
 This video provides detailed explaination about how to let spring run over https instead of http, however, self signed ssl certificate will be marked as dangerous by Chrome, so I will just keep the web running over http.https://www.youtube.com/watch?v=rm9OKTSm-4A
+
+## Port Redirection
+https://stackoverflow.com/questions/33703965/how-can-i-run-a-spring-boot-application-on-port-80
+This website shows how to redirect request from 80 to 8080. Remember to run with sudo.
