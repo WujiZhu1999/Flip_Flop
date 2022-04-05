@@ -55,6 +55,7 @@ function connectToRoom(){
 
 function fetchRoomKey(){
     roomKey = $("#roomKey").text();
+    $("#roomKey").text("Room Key: "+roomKey);
 }
 
 function startNewGame(){
