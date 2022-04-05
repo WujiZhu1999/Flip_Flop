@@ -31,3 +31,6 @@ https://www.baeldung.com/spring-mvc-model-model-map-model-view
 https://stackoverflow.com/questions/18486660/what-are-the-differences-between-model-modelmap-and-modelandview
 https://www.baeldung.com/spring-thymeleaf-request-parameters
 https://spring.io/guides/gs/messaging-stomp-websocket/
+
+## Security
+This video provides detailed explaination about how to let spring run over https instead of http, however, self signed ssl certificate will be marked as dangerous by Chrome, so I will just keep the web running over http.
