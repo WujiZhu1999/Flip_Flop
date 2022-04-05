@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  * Contains a lot of rooms
  * */
 public class FlipFlopRoomLobby {
-    private static final int ROOM_LIMIT = 10;
+    private static final int ROOM_LIMIT = 1000;
     private List<FlipFlopRoom> rooms;
     private static FlipFlopRoomLobby lobby = null;
 
