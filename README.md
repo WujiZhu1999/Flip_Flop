@@ -41,3 +41,5 @@ This website shows how to redirect request from 80 to 8080. Remember to run with
 
 ## CICD
 https://www.youtube.com/watch?v=1-CKqngg6GY
+
+For the command " sudo kill -9 `sudo lsof -t -i:8080` " to work for the first time, should star the web on 8080 beforehand 
