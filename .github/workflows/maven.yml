@@ -22,7 +22,7 @@ jobs:
         cache: maven
         
     - name: Stop Running Spring Boot Application
-      run: z
+      run: sudo kill -9 `sudo lsof -t -i:8080`
         
     - name: Build with Maven
       run: mvn clean install
