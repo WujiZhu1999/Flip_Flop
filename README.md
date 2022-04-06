@@ -38,3 +38,6 @@ This video provides detailed explaination about how to let spring run over https
 ## Port Redirection
 https://stackoverflow.com/questions/33703965/how-can-i-run-a-spring-boot-application-on-port-80
 This website shows how to redirect request from 80 to 8080. Remember to run with sudo.
+
+## CICD
+https://www.youtube.com/watch?v=1-CKqngg6GY
