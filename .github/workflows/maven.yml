@@ -28,4 +28,4 @@ jobs:
       run: mvn clean install
       
     - name: Start web
-      run: cd target & sudo nohup java -jar flip.flop-0.0.1-SNAPSHOT.jar
+      run: cd target/ && sudo nohup java -jar flip.flop-0.0.1-SNAPSHOT.jar
