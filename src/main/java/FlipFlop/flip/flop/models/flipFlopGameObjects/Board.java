@@ -158,6 +158,7 @@ public class Board {
     }
 
     public void setOnHoldImageId(int onHoldImageId) {
+        if(onHoldImageId == -1 || (this.images.size()> onHoldImageId && onHoldImageId >=0))
         this.onHoldImageId = onHoldImageId;
     }
 
@@ -178,71 +179,6 @@ public class Board {
         this.onHoldImageId = -1;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-    public class Action {
-        public Image image;
-        public int w;
-        public int h;
-        public Action(Image image, int w, int h){
-            this.image = image.copy();
-            this.w = w;
-            this.h = h;
-        }
-    }
-
-    public List<Action> click(int w, int h) {
-        if (this.board.size() <= w || this.board.get(w).size() <=h || w<0 || h<0) {
-            //this will happen if click outside table raneg in FE
-            return null;
-        }
-
-        List<Action> actions = new ArrayList<>();
-        BoardCell boardCell = this.board.get(w).get(h);
-        if (boardCell.getCellState().equals(BoardCell.CellState.UNFLIPPEDE)){
-            //only this case will do some update
-            if(this.onHoldImageId == -1 || this.onHoldImageId ==boardCell.getImage()){
-                //successfully click
-                boardCell.flip();
-                this.onHoldImageId = boardCell.getImage();
-                this.onSelect.add(new Coor(w, h));
-
-                actions.add(new Action(this.images.get(boardCell.getImage()),w,h));
-                if (this.onSelect.size() == this.flipCount) {
-                    //successfully flip, mark those cells as flip done
-                    while(!this.onSelect.isEmpty()){
-                        Coor c = this.onSelect.remove(0);
-                        this.board.get(c.w).get(c.h).flipDone();
-                    }
-
-                    this.onHoldImageId = -1;
-                }
-
-            }else{
-                //failed click
-                while(!this.onSelect.isEmpty()) {
-                    Coor c = this.onSelect.remove(0);
-                    this.board.get(c.w).get(c.h).flipBack();
-                    actions.add(new Action(this.backgroundImage, c.w, c.h));
-                }
-                this.onHoldImageId = -1;
-            }
-        } else {
-            return null;
-        }
-
-        return null;
-    }
     public void testPrint(){
         for (int i = 0; i< this.boardWidth; i++) {
             for (int j = 0; j < this.boardHeight; j++){
@@ -253,7 +189,5 @@ public class Board {
             System.out.print("\n");
         }
     }
-
-    //ToDo add test to that
 
 }
