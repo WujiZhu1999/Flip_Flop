@@ -12,7 +12,6 @@ public class FlipFlopRoom {
     private Board board;
     private List<User> users;
     private String roomName;
-    private Boolean locked;
     private static int PD_LEN = 12;
 
     /**
@@ -23,7 +22,6 @@ public class FlipFlopRoom {
             return null;
         }
         this.users.add(user);
-        this.locked = true;
         return roomName;
     }
 
@@ -61,16 +59,11 @@ public class FlipFlopRoom {
         this.board = new Board();
         this.users = new ArrayList<>();
         generateNewName();
-        this.locked = false;
     }
 
     /**
      * Getters
      * */
-
-    public boolean isFree(){
-        return !this.locked;
-    }
 
     public String getRoomName(){
         return this.roomName;
